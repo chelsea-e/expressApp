@@ -41,3 +41,20 @@ app.use(function(req, res, next) {
     console.log("Received request for URL:" + req.url);
     next();
 });
+
+
+// Static Middleware
+app.use('/images', express.static(path.join(__dirname, 'images')))
+
+// Error Message
+app.use(function (req, res, next) {
+    if (req.path.startsWith('/images')) {
+        res.status(404).send("Image not found")
+    }
+    next();
+});
+
+app.param("collectionName", (req, res, next, collectionName )=> {
+    req.collection = db.collection(collectionName);
+    return next();
+})
