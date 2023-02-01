@@ -31,3 +31,13 @@ const uri = dbPprefix + dbUsername + ":" + dbPwd + dbUrl + dbParams;
 const { MongoClient, ServerApiVersion } = require('mongodb');
 //const uri = "mongodb+srv://WebIndividual2:WebIndividual2@webindividual2.ugowvfs.mongodb.net/?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { serverApi: ServerApiVersion.v1 });
+
+let db = client.db(dbName);
+
+app.set("json spaces", 3);
+
+// Logger Middleware
+app.use(function(req, res, next) {
+    console.log("Received request for URL:" + req.url);
+    next();
+});
