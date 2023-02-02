@@ -31,6 +31,7 @@ const uri = dbPprefix + dbUsername + ":" + dbPwd + dbUrl + dbParams;
 const { MongoClient, ServerApiVersion } = require('mongodb');
 //const uri = "mongodb+srv://WebIndividual2:WebIndividual2@webindividual2.ugowvfs.mongodb.net/?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { serverApi: ServerApiVersion.v1 });
+const ObjectId = require('mongodb').ObjectId;
 
 /*client.connect(err => {
   const collection = client.db("Webstore").collection("lessons");
@@ -86,9 +87,17 @@ app.post('/collections/:collectionName', function(req, res, next) {
 
 app.put('/collections/:collectionName/:id', function (req, res, next) {
     var id = req.params.id;
-    req.collection.updateOne({ _id: new ObjectId(id) }, { $set: req.body }, function (err, results) {
+    console.log(id)
+    req.collection.updateOne({ _id: ObjectId(id) }, { $set: req.body }, function (err, results) {
         if (err) {
             return next(err);
         }
         res.send(results);
     });
+});
+
+
+
+app.listen(3000, ()=> {
+    console.log("Server is running!")
+});
