@@ -99,5 +99,5 @@ app.put('/collections/:collectionName/:id', function (req, res, next) {
 
 
 app.listen(3000, () => {
-    console.log("Server is running!")
+    console.log("Server is running on 3000!")
 });
