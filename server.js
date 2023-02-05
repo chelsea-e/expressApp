@@ -115,6 +115,9 @@ app.put('/collections/:collectionName/:id', function (req, res, next) {
     });
 });
 
+app.get("/", function(req, res) {
+    res.send("Welcome to my website!");
+});
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
