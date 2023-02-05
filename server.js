@@ -75,6 +75,25 @@ app.get("/collections/:collectionName", (req, res, next) => {
     })
 })
 
+
+app.get('/collections/:collectionName/search/:query', function (req, res, next) {
+    let searchParam = req.params.query;
+    let query = {};
+    query = {
+      $or: [
+        { topic: { $regex: searchParam, $options: "i" } },
+        { location: { $regex: searchParam, $options: "i" } },
+      ],
+    };
+    req.collection.find(query, {}).toArray(function (err, results) {
+      if (err) {
+        return next(err);
+      }
+      res.send(results);
+    });
+});
+
+
 app.post('/collections/:collectionName', function (req, res, next) {
 
     req.collection.insertOne(req.body, function (err, results) {
